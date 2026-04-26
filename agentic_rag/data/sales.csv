@@ -1,0 +1,16 @@
+id,deal_name,customer,amount,region,sales_rep,status,close_date,product
+1,Acme Corp - CloudSync Enterprise,Acme Corp,231000.0,North America,Nina Wang,negotiating,,CloudSync Enterprise
+2,BMW Group - CloudSync Enterprise,BMW Group,95000.0,Europe,David Murphy,lost,,CloudSync Enterprise
+3,Sony Corp - DevTools Pro,Sony Corp,181000.0,Asia Pacific,David Tanaka,proposal,,DevTools Pro
+4,JPMorgan Chase - CloudSync Enterprise,JPMorgan Chase,70000.0,North America,David Tanaka,closed_won,2026-04-23,CloudSync Enterprise
+5,Petrobras - Mobile SDK,Petrobras,157000.0,Latin America,Nina Wang,proposal,,Mobile SDK
+6,Samsung Electronics - Mobile SDK,Samsung Electronics,51000.0,Asia Pacific,David Tanaka,proposal,,Mobile SDK
+7,Barclays PLC - NovaTech Analytics,Barclays PLC,299000.0,Europe,Nina Wang,proposal,,NovaTech Analytics
+8,Toyota Motor - CloudSync Enterprise,Toyota Motor,118000.0,Asia Pacific,Nina Wang,closed_won,2026-01-30,CloudSync Enterprise
+9,Walmart Inc - CloudSync Enterprise,Walmart Inc,205000.0,North America,David Tanaka,proposal,,CloudSync Enterprise
+10,Banco do Brasil - DevTools Pro,Banco do Brasil,180000.0,Latin America,Diana Tanaka,lost,,DevTools Pro
+11,Siemens AG - CloudSync Enterprise,Siemens AG,153000.0,Europe,David Tanaka,proposal,,CloudSync Enterprise
+12,Netflix Inc - CloudSync Enterprise,Netflix Inc,263000.0,North America,Diana Tanaka,lost,,CloudSync Enterprise
+13,Tesla Inc - Mobile SDK,Tesla Inc,127000.0,North America,David Murphy,lost,,Mobile SDK
+14,Infosys - CloudSync Enterprise,Infosys,206000.0,Asia Pacific,David Tanaka,lost,,CloudSync Enterprise
+15,Spotify - CloudSync Enterprise,Spotify,113000.0,Europe,Nina Wang,proposal,,CloudSync Enterprise

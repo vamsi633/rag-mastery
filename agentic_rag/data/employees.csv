@@ -1,0 +1,32 @@
+id,name,department,role,salary,hire_date,status,office
+1,Brian Chen,Engineering,Junior Engineer,82000.0,2024-07-26,active,Bangalore
+2,Yuki Murphy,Engineering,Junior Engineer,72000.0,2023-08-10,active,New York
+3,Sophie Park,Engineering,Senior Engineer,125000.0,2023-07-05,left,Tokyo
+4,Carlos Brown,Engineering,Junior Engineer,81000.0,2023-12-12,active,New York
+5,Chris Martin,Engineering,Engineering Manager,123000.0,2023-01-24,left,Tokyo
+6,Jennifer Ross,Engineering,Junior Engineer,93000.0,2022-10-20,active,New York
+7,Nina Kowalski,Engineering,Engineer,138000.0,2023-07-30,active,Tokyo
+8,James Wang,Engineering,Engineer,135000.0,2023-05-20,left,London
+9,James Chen,Engineering,Engineering Manager,129000.0,2025-02-10,active,Tokyo
+10,David Murphy,Sales,Sales Manager,165000.0,2022-11-06,active,Tokyo
+11,Kevin Johnson,Sales,Account Executive,118000.0,2025-05-09,active,Bangalore
+12,David Tanaka,Sales,Sales Manager,139000.0,2025-07-31,left,San Francisco
+13,Diana Tanaka,Sales,Sales Rep,89000.0,2022-03-27,active,Bangalore
+14,Nina Wang,Sales,Account Executive,139000.0,2024-05-08,active,Bangalore
+15,Sophie Johnson,Customer Success,CS Representative,71000.0,2023-09-20,active,New York
+16,Kevin Rivera,Customer Success,CS Representative,72000.0,2023-11-03,active,San Francisco
+17,Emma Wilson,Customer Success,CS Representative,80000.0,2023-10-20,active,New York
+18,Robert Murphy,Customer Success,CS Representative,71000.0,2025-11-24,active,Tokyo
+19,Maria Wang,Product,Senior PM,169000.0,2025-06-28,active,San Francisco
+20,Ryan Kowalski,Product,Senior PM,152000.0,2022-03-30,active,New York
+21,Brian Liu,Product,Product Manager,151000.0,2024-10-06,active,San Francisco
+22,Marcus Johnson,Product,Senior PM,155000.0,2022-05-09,left,New York
+23,Nina Rivera,Marketing,Marketing Specialist,83000.0,2025-06-14,active,London
+24,Tom Kowalski,Marketing,Marketing Specialist,92000.0,2024-10-02,active,Tokyo
+25,Sam Wilson,Marketing,Marketing Specialist,99000.0,2024-05-03,active,Bangalore
+26,Nina Park,Marketing,Content Manager,167000.0,2025-08-07,active,San Francisco
+27,Tom Martin,Marketing,Content Manager,146000.0,2023-11-19,active,London
+28,Sarah Wilson,HR,HR Manager,173000.0,2022-09-29,left,New York
+29,James Mendez,HR,HR Coordinator,72000.0,2024-07-01,active,San Francisco
+30,Priya Tanaka,HR,HR Coordinator,64000.0,2023-02-13,active,Bangalore
+31,Emma Mendez,HR,HR Manager,163000.0,2025-06-27,left,New York

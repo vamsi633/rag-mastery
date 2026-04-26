@@ -1,0 +1,13 @@
+id,customer,issue,product,priority,status,assigned_to,created_date,resolved_date
+1,Toyota Motor,Dashboard not loading after update,DevTools Pro,high,open,,2026-03-29,
+2,Samsung Electronics,Data sync delay between regions,NovaTech Analytics,critical,in_progress,Emma Wilson,2026-04-01,
+3,JPMorgan Chase,API rate limiting errors,DevTools Pro,high,resolved,Kevin Rivera,2026-04-14,2026-04-23
+4,Petrobras,SSO integration failing,DevTools Pro,critical,in_progress,Kevin Rivera,2026-03-31,
+5,Sony Corp,Language support missing,Mobile SDK,medium,resolved,Robert Murphy,2026-03-24,2026-04-23
+6,Samsung Electronics,Bulk export timing out,DevTools Pro,high,in_progress,Sophie Johnson,2026-04-05,
+7,Samsung Electronics,Compliance report failing,DevTools Pro,critical,open,,2026-04-10,
+8,Samsung Electronics,Documentation unclear,Mobile SDK,low,open,,2026-04-22,
+9,Acme Corp,Custom widgets not saving,NovaTech Analytics,medium,resolved,Sophie Johnson,2026-03-30,2026-04-26
+10,Acme Corp,Feature request: collaboration,NovaTech Analytics,low,resolved,Emma Wilson,2026-03-17,2026-04-24
+11,Petrobras,Login timeout on mobile,NovaTech Analytics,high,resolved,Emma Wilson,2026-04-08,2026-04-26
+12,Acme Corp,Webhook notifications delayed,Mobile SDK,medium,in_progress,Sophie Johnson,2026-03-16,
