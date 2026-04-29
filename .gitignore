@@ -2,3 +2,11 @@
 venv/
 __pycache__/
 .DS_Store
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Large local data
+autonomous_corrective_multiagent_rag/data/*.csv
+autonomous_corrective_multiagent_rag/data/*.pdf
