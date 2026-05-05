@@ -25,9 +25,11 @@ def infer_pg_type(values):
     return "TEXT"
 
 def load_csv(filepath, conn):
-    """Load ONE CSV into PostgreSQL with batch commits."""
+    """Load ONE CSV using PostgreSQL COPY — much faster than INSERT."""
     table_name = os.path.basename(filepath).replace(".csv", "").replace("-", "_")
     cursor = conn.cursor()
+
+    print(f"  Loading {table_name}...", end=" ", flush=True)
 
     with open(filepath, "r", encoding="utf-8", errors="replace") as f:
         reader = csv.reader(f)
@@ -35,10 +37,10 @@ def load_csv(filepath, conn):
         rows = list(reader)
 
     if not rows:
-        print(f"  Skipping {table_name} — empty")
-        return
+        print("empty, skipping")
+        return conn
 
-    # Infer types from first 100 rows
+    # Infer types
     col_types = []
     for col_idx in range(len(headers)):
         samples = [r[col_idx] for r in rows[:100] if col_idx < len(r) and r[col_idx]]
@@ -50,37 +52,68 @@ def load_csv(filepath, conn):
     cursor.execute(f"CREATE TABLE {table_name} ({cols_sql})")
     conn.commit()
 
-    # Insert in small batches with commit after each
-    placeholders = ", ".join(["%s"] * len(headers))
-    batch_size = 500
-    inserted = 0
+    # Use COPY for fast bulk loading
+    import io
 
-    for i in range(0, len(rows), batch_size):
-        batch = []
-        for row in rows[i:i + batch_size]:
-            values = [None if v == "" else v for v in row[:len(headers)]]
-            values += [None] * (len(headers) - len(values))
-            batch.append(values)
+    # Build a TSV string in memory
+    buffer = io.StringIO()
+    for row in rows:
+        values = row[:len(headers)]
+        values += [""] * (len(headers) - len(values))
+        # Escape tabs and newlines, replace empty with \N (NULL)
+        cleaned = []
+        for v in values:
+            if v == "" or v is None:
+                cleaned.append("\\N")
+            else:
+                cleaned.append(v.replace("\t", " ").replace("\n", " ").replace("\\", "\\\\"))
+        buffer.write("\t".join(cleaned) + "\n")
 
-        try:
-            cursor.executemany(
-                f"INSERT INTO {table_name} VALUES ({placeholders})", batch
-            )
-            conn.commit()
-            inserted += len(batch)
-        except Exception as e:
-            conn.rollback()
-            print(f"    Error at batch {i}: {e}")
-            # Reconnect if connection dropped
-            conn = psycopg2.connect(DATABASE_URL)
-            cursor = conn.cursor()
-            continue
+    buffer.seek(0)
 
-    print(f"  {table_name}: {inserted:,} rows, {len(headers)} columns")
-    return conn  # return conn in case it was reconnected
+    try:
+        cursor.copy_expert(
+            f"""COPY {table_name} ({', '.join(f'"{h}"' for h in headers)}) 
+                FROM STDIN WITH (FORMAT text, NULL '\\N')""",
+            buffer,
+        )
+        conn.commit()
+        print(f"{len(rows):,} rows ✅")
+    except Exception as e:
+        conn.rollback()
+        print(f"COPY failed ({e}), falling back to batch INSERT...")
+
+        # Fallback to batch insert
+        placeholders = ", ".join(["%s"] * len(headers))
+        inserted = 0
+        batch_size = 500
+
+        for i in range(0, len(rows), batch_size):
+            batch = []
+            for row in rows[i:i + batch_size]:
+                values = [None if v == "" else v for v in row[:len(headers)]]
+                values += [None] * (len(headers) - len(values))
+                batch.append(values)
+
+            try:
+                cursor.executemany(
+                    f"INSERT INTO {table_name} VALUES ({placeholders})", batch
+                )
+                conn.commit()
+                inserted += len(batch)
+                print(f"    {inserted:,}/{len(rows):,} rows...", flush=True)
+            except Exception as e2:
+                conn.rollback()
+                print(f"    Batch error at {i}: {e2}")
+                conn = psycopg2.connect(DATABASE_URL)
+                cursor = conn.cursor()
+                continue
+
+        print(f"  {table_name}: {inserted:,} rows ✅")
+
+    return conn
 
 def load_all_csvs(data_dir="data"):
-    """Load all CSVs from data/ folder into PostgreSQL."""
     conn = psycopg2.connect(DATABASE_URL)
 
     csv_files = sorted([
@@ -94,11 +127,8 @@ def load_all_csvs(data_dir="data"):
 
     print(f"Loading {len(csv_files)} CSVs into PostgreSQL...")
     for csv_file in csv_files:
-        result = load_csv(os.path.join(data_dir, csv_file), conn)
-        if result:
-            conn = result  # use reconnected connection if needed
+        conn = load_csv(os.path.join(data_dir, csv_file), conn)
 
-    # Create memory table
     cursor = conn.cursor()
     cursor.execute("DROP TABLE IF EXISTS conversation_memory CASCADE")
     cursor.execute("""
@@ -113,7 +143,6 @@ def load_all_csvs(data_dir="data"):
     """)
     conn.commit()
 
-    # Print summary
     cursor.execute("""
         SELECT table_name FROM information_schema.tables
         WHERE table_schema = 'public' ORDER BY table_name

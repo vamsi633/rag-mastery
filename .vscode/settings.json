@@ -1,0 +1,3 @@
+{
+  "python.analysis.extraPaths": ["./autonomous_corrective_multiagent_rag"]
+}
